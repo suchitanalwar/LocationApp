@@ -5,19 +5,35 @@
  */
 package com.xoriant.locationapp.controller;
 
+import com.xoriant.locationapp.model.Place;
+import com.xoriant.locationapp.service.LocationService;
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.util.List;
+import javax.servlet.http.HttpServletResponse;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  *
  * @author HP
  */
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/places")
 public class LocationController {
-    
-    
-    
-    
-    
+
+    @Autowired
+    LocationService locationService;
+
+    @RequestMapping(value = "/search", method = RequestMethod.GET)
+    public List<Place> searchPlaces(HttpServletResponse response, @RequestParam String search)
+            throws MalformedURLException, IOException {
+
+        return locationService.searchPlaces(search);
+
+    }
+
 }
