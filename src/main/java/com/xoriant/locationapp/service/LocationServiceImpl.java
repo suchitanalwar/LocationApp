@@ -5,11 +5,13 @@
  */
 package com.xoriant.locationapp.service;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.xoriant.locationapp.exception.PlaceParseException;
 import com.xoriant.locationapp.httpclients.PlacesHttpClient;
-import com.xoriant.locationapp.model.Place;
+import com.xoriant.locationapp.model.Candidate;
+import com.xoriant.locationapp.model.PlaceResponse;
 import java.io.IOException;
 import java.net.MalformedURLException;
-import java.util.LinkedList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,15 +27,19 @@ public class LocationServiceImpl implements LocationService {
     PlacesHttpClient placesHttpClient;
 
     @Override
-    public List<Place> searchPlaces(String text) throws MalformedURLException, IOException {
+    public List<Candidate> searchPlaces(String text) throws MalformedURLException, IOException, PlaceParseException {
 
-        List<Place> list = new LinkedList<Place>();   //Use a linked list here, since the only operation is insert. Avoiding the overhead of growing the array.
-        String places = placesHttpClient.searchPlaces(text);
+        String response = placesHttpClient.searchPlaces(text);
         
-        //TODO parse response
+        ObjectMapper objectMapper = new ObjectMapper();
+        PlaceResponse placeResponse = objectMapper.readValue(response, PlaceResponse.class);
         
+        if(placeResponse.getErrorMessage() != null && !placeResponse.getErrorMessage().isEmpty()) {
+            throw new PlaceParseException(placeResponse.getErrorMessage());
+        }
         
-        return list;
+        return placeResponse.getCandidates();
     }
+    
 
 }

@@ -34,6 +34,26 @@ public class GooglePlacesHttpClient implements PlacesHttpClient {
         params.put("inputtype", "textquery");
 
         return sendGet(url, params);
+
+/*        return "{\n" +
+"   \"candidates\" : [\n" +
+"      {\n" +
+"         \"formatted_address\" : \"140 George St, The Rocks NSW 2000, Australia\",\n" +
+"         \n" +
+"         \"name\" : \"Museum of Contemporary Art Australia\",\n" +
+"         \"opening_hours\" : {\n" +
+"            \"open_now\" : false,\n" +
+"            \"weekday_text\" : []\n" +
+"         },\n" +
+"         \n" +
+"         \"rating\" : 4.3\n" +
+"      }\n" +
+"   ],\n" +
+"   \"debug_log\" : {\n" +
+"      \"line\" : []\n" +
+"   },\n" +
+"   \"status\" : \"OK\"\n" +
+"}";*/
     }
 
     private String sendGet(String inputUrl, Map<String, String> params) throws MalformedURLException, IOException {
@@ -76,21 +96,4 @@ public class GooglePlacesHttpClient implements PlacesHttpClient {
 
         }
     }
-
-//    public static String getParamsString(Map<String, String> params) 
-//      throws UnsupportedEncodingException{
-//        StringBuilder result = new StringBuilder();
-// 
-//        for (Map.Entry<String, String> entry : params.entrySet()) {
-//          result.append(URLEncoder.encode(entry.getKey(), "UTF-8"));
-//          result.append("=");
-//          result.append(URLEncoder.encode(entry.getValue(), "UTF-8"));
-//          result.append("&");
-//        }
-// 
-//        String resultString = result.toString();
-//        return resultString.length() > 0
-//          ? resultString.substring(0, resultString.length() - 1)
-//          : resultString;
-//    }
 }

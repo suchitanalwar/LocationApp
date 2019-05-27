@@ -5,7 +5,8 @@
  */
 package com.xoriant.locationapp.controller;
 
-import com.xoriant.locationapp.model.Place;
+import com.xoriant.locationapp.exception.PlaceParseException;
+import com.xoriant.locationapp.model.Candidate;
 import com.xoriant.locationapp.service.LocationService;
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -29,10 +30,10 @@ public class LocationController {
     LocationService locationService;
 
     @RequestMapping(value = "/search", method = RequestMethod.GET)
-    public List<Place> searchPlaces(HttpServletResponse response, @RequestParam String search)
-            throws MalformedURLException, IOException {
+    public List<Candidate> searchPlaces(HttpServletResponse response, @RequestParam String searchText)
+            throws MalformedURLException, IOException, PlaceParseException {
 
-        return locationService.searchPlaces(search);
+        return locationService.searchPlaces(searchText);
 
     }
 
