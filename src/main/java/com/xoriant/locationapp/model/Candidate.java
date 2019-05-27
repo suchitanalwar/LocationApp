@@ -28,6 +28,10 @@ public class Candidate {
     
     @JsonIgnoreProperties
     private String rating;
+    
+    @JsonIgnoreProperties
+    private String type;
+    
 
     public String getId() {
         return id;
@@ -67,6 +71,14 @@ public class Candidate {
 
     public void setRating(String rating) {
         this.rating = rating;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
     
     
