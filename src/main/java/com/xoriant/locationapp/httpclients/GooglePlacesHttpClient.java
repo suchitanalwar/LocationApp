@@ -6,7 +6,6 @@
 package com.xoriant.locationapp.httpclients;
 
 import java.io.BufferedReader;
-import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
@@ -34,11 +33,9 @@ public class GooglePlacesHttpClient implements PlacesHttpClient {
 
     @Override
     public String searchPlaces(String text) throws MalformedURLException, IOException {
-        
         Map<String, String> params = new HashMap<>();
         params.put("key", apiKey);
         params.put("query", text);
-        
         return sendGet(searchPlacesUrl, params);
     }
 
@@ -49,7 +46,6 @@ public class GooglePlacesHttpClient implements PlacesHttpClient {
         StringBuilder response = new StringBuilder();
         HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
         httpURLConnection.setRequestMethod("GET");
-//        addParamsString(params, httpURLConnection);
 
         int responseCode = httpURLConnection.getResponseCode();
         if (responseCode == HttpStatus.OK.value()) {
@@ -75,11 +71,6 @@ public class GooglePlacesHttpClient implements PlacesHttpClient {
                 result.append("&");
             }
             resultString = result.toString().substring(0, result.toString().length() - 1);
-            /*httpURLConnection.setDoOutput(true);
-            try (DataOutputStream out = new DataOutputStream(httpURLConnection.getOutputStream())) {
-                out.writeBytes(resultString);
-                out.flush();
-            }*/
         }
         return resultString;
     }

@@ -6,6 +6,7 @@
 package com.xoriant.locationapp.exception;
 
 import com.xoriant.locationapp.model.ErrorInfo;
+import java.nio.file.NoSuchFileException;
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -32,6 +33,21 @@ public class ExceptionControllerAdvice {
             ex.printStackTrace(System.err);
         }
         System.err.println("Generic Exception Handler:  " + ex.getMessage());
+        System.err.println("Request URL: " + req.getRequestURI());
+        return new ErrorInfo(req.getRequestURL(), ex);
+    }
+    
+    @ResponseBody
+    @ExceptionHandler(NoSuchFileException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    ErrorInfo handelNoSuchFileError(HttpServletRequest req, NoSuchFileException ex) {
+        if (ex != null && ex.getMessage() != null) {
+            System.err.println("Exception Handler: Exception " + ex.getMessage());
+            System.err.println("Request URL: " + req.getRequestURI());
+            
+            ex.printStackTrace(System.err);
+        }
+        System.err.println("No Such File Exception Handler:  " + ex.getMessage());
         System.err.println("Request URL: " + req.getRequestURI());
         return new ErrorInfo(req.getRequestURL(), ex);
     }

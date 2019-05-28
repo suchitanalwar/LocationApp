@@ -6,6 +6,7 @@
 package com.xoriant.locationapp.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.xoriant.locationapp.dao.LocationDao;
 import com.xoriant.locationapp.exception.PlaceParseException;
 import com.xoriant.locationapp.httpclients.PlacesHttpClient;
 import com.xoriant.locationapp.model.Result;
@@ -25,10 +26,17 @@ public class LocationServiceImpl implements LocationService {
 
     @Autowired
     PlacesHttpClient placesHttpClient;
+    
+    @Autowired
+    LocationDao locationDao;
 
     @Override
     public List<Result> searchPlaces(String text) throws MalformedURLException, IOException, PlaceParseException {
-
+        
+        if(text == null || text.isEmpty()) {
+            throw new IllegalArgumentException("Search text cannot be empty");
+        }
+        
         String response = placesHttpClient.searchPlaces(text);
         
         ObjectMapper objectMapper = new ObjectMapper();
@@ -39,5 +47,24 @@ public class LocationServiceImpl implements LocationService {
         }
         
         return placeResponse.getResults();
+    }
+
+    @Override
+    public void markAsFav(String placeId) throws IOException {
+        
+        if(placeId == null || placeId.isEmpty()) {
+            throw new IllegalArgumentException("Incorrect Place Id specified");
+        }
+
+        locationDao.markAsFav(placeId);
+    }
+
+    @Override
+    public List<Result> getFavPlaces() throws IOException {
+        
+        List<String> favPlaces = locationDao.favPlaces();
+        
+        
+        return null;
     }
 }

@@ -18,5 +18,7 @@ import java.util.List;
 public interface LocationService {
 
     public List<Result> searchPlaces(String text) throws MalformedURLException, IOException, PlaceParseException;
+    public void markAsFav(String placeId) throws IOException;
+    public List<Result> getFavPlaces() throws IOException;
 
 }
