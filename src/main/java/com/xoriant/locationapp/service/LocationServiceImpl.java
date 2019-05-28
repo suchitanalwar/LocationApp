@@ -15,7 +15,6 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.util.List;
 import java.util.stream.Collectors;
-import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -77,14 +76,19 @@ public class LocationServiceImpl implements LocationService {
                                             .filter((place) -> (place.getTypes() != null && place.getTypes().contains(category)))
                                             .collect(Collectors.toList());
         return filterPlaces;
-
     }
 
     @Override
-    public JSONObject getPlaceDetails(String placeId) throws MalformedURLException, IOException {
+    public Result getPlaceDetails(String placeId) throws MalformedURLException, IOException, PlaceParseException {
         String response = placesHttpClient.getPlaceDetails(placeId);
-        JSONObject json = new JSONObject(response);
-        return json;
+        ObjectMapper objectMapper = new ObjectMapper();
+        PlaceResponse placeResponse = objectMapper.readValue(response, PlaceResponse.class);
+        
+        if (placeResponse.getErrorMessage() != null && !placeResponse.getErrorMessage().isEmpty()) {
+            throw new PlaceParseException(placeResponse.getErrorMessage());
+        }
+        
+        return placeResponse.getResult();
 
     }
 

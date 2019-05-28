@@ -12,7 +12,6 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.util.List;
 import javax.servlet.http.HttpServletResponse;
-import org.json.JSONObject;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -38,13 +37,6 @@ public class LocationController {
         return locationService.searchPlaces(searchText);
     }
 
-    @ResponseStatus(value = HttpStatus.CREATED)
-    @RequestMapping(value = "/fav", method = RequestMethod.POST)
-    public void markPlaceAsFav(HttpServletResponse response, @RequestParam String placeId)
-            throws IOException {
-        locationService.markAsFav(placeId);
-    }
-
     @RequestMapping(value = "/type", method = RequestMethod.GET)
     public List<Result> searchPlaceByType(HttpServletResponse response, @RequestParam String searchText, @RequestParam String category)
             throws MalformedURLException, IOException, PlaceParseException {
@@ -52,8 +44,8 @@ public class LocationController {
     }
 
     @RequestMapping(value = "/details", method = RequestMethod.GET)
-    public JSONObject getPlaceDetails(HttpServletResponse response, @RequestParam String placeId)
-            throws MalformedURLException, IOException {
+    public Result getPlaceDetails(HttpServletResponse response, @RequestParam String placeId)
+            throws MalformedURLException, IOException, PlaceParseException {
         return locationService.getPlaceDetails(placeId);
     }
 
@@ -61,6 +53,13 @@ public class LocationController {
     public List<Result> getFavPlaces(HttpServletResponse response)
             throws MalformedURLException, IOException, PlaceParseException {
         return locationService.getFavPlaces();
+    }
+
+    @ResponseStatus(value = HttpStatus.CREATED)
+    @RequestMapping(value = "/fav", method = RequestMethod.POST)
+    public void markPlaceAsFav(HttpServletResponse response, @RequestParam String placeId)
+            throws IOException {
+        locationService.markAsFav(placeId);
     }
 
 }

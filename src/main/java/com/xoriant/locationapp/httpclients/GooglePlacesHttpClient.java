@@ -83,7 +83,7 @@ public class GooglePlacesHttpClient implements PlacesHttpClient {
 
         Map<String, String> params = new HashMap<>();
         params.put("key", apiKey);
-        params.put("query", placeId);
+        params.put("placeid", placeId);
 
         return sendGet(detailsPlacesUrl, params);
     }

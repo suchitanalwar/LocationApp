@@ -10,7 +10,6 @@ import com.xoriant.locationapp.model.Result;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.util.List;
-import org.json.JSONObject;
 
 /**
  *
@@ -22,6 +21,6 @@ public interface LocationService {
     public void markAsFav(String placeId) throws IOException;
     public List<Result> getFavPlaces() throws IOException;
     public List<Result> searchPlaceByType(String searchText, String category) throws MalformedURLException, IOException, PlaceParseException;
-    public JSONObject getPlaceDetails(String placeId) throws MalformedURLException, IOException;
+    public Result getPlaceDetails(String placeId) throws MalformedURLException, IOException, PlaceParseException;
 
 }

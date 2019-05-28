@@ -8,11 +8,10 @@ package com.xoriant.locationapp.model;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
-import static jdk.nashorn.internal.objects.NativeJava.type;
 
 /**
  *
- * @author akshay.velhal
+ * @author nalwar_s
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Result {
@@ -25,6 +24,7 @@ public class Result {
     
     @JsonIgnoreProperties
     private String placeId;
+    
     @JsonProperty("formatted_address")
     private String formattedAddress;
     

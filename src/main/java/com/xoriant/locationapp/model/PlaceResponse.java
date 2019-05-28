@@ -16,10 +16,14 @@ import java.util.List;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class PlaceResponse {
 
+    @JsonIgnoreProperties
     private List<Result> results;
     
+    @JsonIgnoreProperties
+    private Result result;
+
     private String status;
-    
+
     @JsonIgnoreProperties
     @JsonProperty("error_message")
     private String errorMessage;
@@ -47,5 +51,13 @@ public class PlaceResponse {
     public void setErrorMessage(String errorMessage) {
         this.errorMessage = errorMessage;
     }
-    
+
+    public Result getResult() {
+        return result;
+    }
+
+    public void setResult(Result result) {
+        this.result = result;
+    }
+
 }
