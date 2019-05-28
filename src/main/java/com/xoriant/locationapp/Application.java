@@ -11,7 +11,7 @@ import org.springframework.boot.autoconfigure.domain.EntityScan;
      
 /**
  *
- * @author HP
+ * @author nalwar_s
  */
 @SpringBootApplication
 @EntityScan("com.xoriant.locationapp")

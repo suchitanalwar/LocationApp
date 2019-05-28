@@ -10,10 +10,11 @@ import java.net.MalformedURLException;
 
 /**
  *
- * @author akshay.velhal
+ * @author nalwar_s
  */
 public interface PlacesHttpClient {
 
     public String searchPlaces(String text) throws MalformedURLException, IOException;
-
+    public String getDetails(String placeId) throws MalformedURLException, IOException;
+    
 }

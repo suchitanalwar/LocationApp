@@ -20,16 +20,19 @@ import org.springframework.stereotype.Service;
 
 /**
  *
- * @author akshay.velhal
+ * @author nalwar_s
  */
 @Service
 public class GooglePlacesHttpClient implements PlacesHttpClient {
-    
+
     @Value("${API_KEY}")
     private String apiKey;
-    
+
     @Value("${SEARCH_PLACES_URL}")
     private String searchPlacesUrl;
+
+    @Value("${DETAILS_PLACES_URL}")
+    private String detailsPlacesUrl;
 
     @Override
     public String searchPlaces(String text) throws MalformedURLException, IOException {
@@ -40,9 +43,9 @@ public class GooglePlacesHttpClient implements PlacesHttpClient {
     }
 
     private String sendGet(String inputUrl, Map<String, String> params) throws MalformedURLException, IOException {
-        
+
         String queryString = addParamsString(params);
-        URL url = new URL( queryString == "" ? inputUrl : inputUrl + "?" + queryString );
+        URL url = new URL(queryString == "" ? inputUrl : inputUrl + "?" + queryString);
         StringBuilder response = new StringBuilder();
         HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
         httpURLConnection.setRequestMethod("GET");
@@ -73,5 +76,15 @@ public class GooglePlacesHttpClient implements PlacesHttpClient {
             resultString = result.toString().substring(0, result.toString().length() - 1);
         }
         return resultString;
+    }
+
+    @Override
+    public String getDetails(String placeId) throws MalformedURLException, IOException {
+
+        Map<String, String> params = new HashMap<>();
+        params.put("key", apiKey);
+        params.put("query", placeId);
+
+        return sendGet(detailsPlacesUrl, params);
     }
 }

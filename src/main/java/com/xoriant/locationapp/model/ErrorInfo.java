@@ -7,7 +7,7 @@ package com.xoriant.locationapp.model;
 
 /**
  *
- * @author akshay.velhal
+ * @author nalwar_s
  */
 public class ErrorInfo {
 

@@ -11,7 +11,7 @@ import java.util.List;
 
 /**
  *
- * @author akshay.velhal
+ * @author nalwar_s
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class PlaceResponse {

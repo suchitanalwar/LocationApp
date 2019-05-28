@@ -17,7 +17,7 @@ import org.springframework.stereotype.Repository;
 
 /**
  *
- * @author akshay.velhal
+ * @author nalwar_s
  */
 @Repository
 public class LocationDaoImpl implements LocationDao {

@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 
 /**
  *
- * @author akshay.velhal
+ * @author nalwar_s
  */
 @ControllerAdvice
 public class ExceptionControllerAdvice {

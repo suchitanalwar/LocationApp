@@ -7,7 +7,7 @@ package com.xoriant.locationapp.exception;
 
 /**
  *
- * @author akshay.velhal
+ * @author nalwar_s
  */
 public class PlaceParseException extends Exception {
     

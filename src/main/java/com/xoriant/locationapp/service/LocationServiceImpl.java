@@ -14,45 +14,47 @@ import com.xoriant.locationapp.model.PlaceResponse;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.util.List;
+import java.util.stream.Collectors;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
  *
- * @author akshay.velhal
+ * @author nalwar_s
  */
 @Service
 public class LocationServiceImpl implements LocationService {
 
     @Autowired
     PlacesHttpClient placesHttpClient;
-    
+
     @Autowired
     LocationDao locationDao;
 
     @Override
     public List<Result> searchPlaces(String text) throws MalformedURLException, IOException, PlaceParseException {
-        
-        if(text == null || text.isEmpty()) {
+
+        if (text == null || text.isEmpty()) {
             throw new IllegalArgumentException("Search text cannot be empty");
         }
-        
+
         String response = placesHttpClient.searchPlaces(text);
-        
+
         ObjectMapper objectMapper = new ObjectMapper();
         PlaceResponse placeResponse = objectMapper.readValue(response, PlaceResponse.class);
-        
-        if(placeResponse.getErrorMessage() != null && !placeResponse.getErrorMessage().isEmpty()) {
+
+        if (placeResponse.getErrorMessage() != null && !placeResponse.getErrorMessage().isEmpty()) {
             throw new PlaceParseException(placeResponse.getErrorMessage());
         }
-        
+
         return placeResponse.getResults();
     }
 
     @Override
     public void markAsFav(String placeId) throws IOException {
-        
-        if(placeId == null || placeId.isEmpty()) {
+
+        if (placeId == null || placeId.isEmpty()) {
             throw new IllegalArgumentException("Incorrect Place Id specified");
         }
 
@@ -61,10 +63,30 @@ public class LocationServiceImpl implements LocationService {
 
     @Override
     public List<Result> getFavPlaces() throws IOException {
-        
+
         List<String> favPlaces = locationDao.favPlaces();
-        
-        
+
         return null;
     }
+
+    @Override
+    public List<Result> filterPlaces(String searchText, String category) throws MalformedURLException, IOException, PlaceParseException {
+
+        List<Result> searchPlaces = searchPlaces(searchText);
+        List<Result> filterPlaces
+                = searchPlaces.stream()
+                        .filter((place) -> (place.getTypes() != null && place.getTypes().contains(category)))
+                        .collect(Collectors.toList());
+        return filterPlaces;
+
+    }
+
+    @Override
+    public JSONObject getDetails(String placeId) throws MalformedURLException, IOException, PlaceParseException {
+        String response = placesHttpClient.getDetails(placeId);
+        JSONObject json = new JSONObject(response);
+        return json;
+
+    }
+
 }

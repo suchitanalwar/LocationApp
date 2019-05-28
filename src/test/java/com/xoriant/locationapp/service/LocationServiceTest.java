@@ -21,7 +21,7 @@ import org.powermock.modules.junit4.PowerMockRunner;
 
 /**
  *
- * @author akshay.velhal
+ * @author nalwar_s
  */
 @RunWith(PowerMockRunner.class)
 public class LocationServiceTest {
