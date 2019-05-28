@@ -6,7 +6,7 @@
 package com.xoriant.locationapp.service;
 
 import com.xoriant.locationapp.exception.PlaceParseException;
-import com.xoriant.locationapp.model.Candidate;
+import com.xoriant.locationapp.model.Result;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.util.List;
@@ -17,6 +17,6 @@ import java.util.List;
  */
 public interface LocationService {
 
-    public List<Candidate> searchPlaces(String text) throws MalformedURLException, IOException, PlaceParseException;
+    public List<Result> searchPlaces(String text) throws MalformedURLException, IOException, PlaceParseException;
 
 }

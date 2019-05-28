@@ -7,16 +7,21 @@ package com.xoriant.locationapp.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.List;
+import static jdk.nashorn.internal.objects.NativeJava.type;
 
 /**
  *
  * @author akshay.velhal
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Candidate {
-    
+public class Result {
+
     @JsonIgnoreProperties
     private String id;
+    
+    @JsonIgnoreProperties
+    private String icon;
     
     @JsonIgnoreProperties
     private String placeId;
@@ -30,7 +35,7 @@ public class Candidate {
     private String rating;
     
     @JsonIgnoreProperties
-    private String type;
+    private List<String> types;
     
 
     public String getId() {
@@ -72,14 +77,21 @@ public class Candidate {
     public void setRating(String rating) {
         this.rating = rating;
     }
-
-    public String getType() {
-        return type;
+    
+    public String getIcon() {
+        return icon;
     }
 
-    public void setType(String type) {
-        this.type = type;
+    public void setIcon(String icon) {
+        this.icon = icon;
     }
-    
-    
+
+    public List<String> getTypes() {
+        return types;
+    }
+
+    public void setTypes(List<String> types) {
+        this.types = types;
+    }
+
 }

@@ -8,7 +8,7 @@ package com.xoriant.locationapp.service;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.xoriant.locationapp.exception.PlaceParseException;
 import com.xoriant.locationapp.httpclients.PlacesHttpClient;
-import com.xoriant.locationapp.model.Candidate;
+import com.xoriant.locationapp.model.Result;
 import com.xoriant.locationapp.model.PlaceResponse;
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -27,7 +27,7 @@ public class LocationServiceImpl implements LocationService {
     PlacesHttpClient placesHttpClient;
 
     @Override
-    public List<Candidate> searchPlaces(String text) throws MalformedURLException, IOException, PlaceParseException {
+    public List<Result> searchPlaces(String text) throws MalformedURLException, IOException, PlaceParseException {
 
         String response = placesHttpClient.searchPlaces(text);
         
@@ -38,8 +38,6 @@ public class LocationServiceImpl implements LocationService {
             throw new PlaceParseException(placeResponse.getErrorMessage());
         }
         
-        return placeResponse.getCandidates();
+        return placeResponse.getResults();
     }
-    
-
 }

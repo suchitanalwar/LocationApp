@@ -7,7 +7,7 @@ package com.xoriant.locationapp.service;
 
 import com.xoriant.locationapp.exception.PlaceParseException;
 import com.xoriant.locationapp.httpclients.PlacesHttpClient;
-import com.xoriant.locationapp.model.Candidate;
+import com.xoriant.locationapp.model.Result;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.util.List;
@@ -37,26 +37,38 @@ public class LocationServiceTest {
     public void testSearchPlacesOneSearchResult() throws IOException, MalformedURLException, PlaceParseException {
         String searchText = "Museum";
         Mockito.when(placesHttpClient.searchPlaces(searchText)).thenReturn("{\n" +
-"   \"candidates\" : [\n" +
-"      {\n" +
-"         \"formatted_address\" : \"140 George St, The Rocks NSW 2000, Australia\",\n" +
-"         \n" +
-"         \"name\" : \"Museum of Contemporary Art Australia\",\n" +
-"         \"opening_hours\" : {\n" +
-"            \"open_now\" : false,\n" +
-"            \"weekday_text\" : []\n" +
-"         },\n" +
-"         \n" +
-"         \"rating\" : 4.3\n" +
-"      }\n" +
-"   ],\n" +
-"   \"debug_log\" : {\n" +
-"      \"line\" : []\n" +
-"   },\n" +
-"   \"status\" : \"OK\"\n" +
+"    \"html_attributions\": [],\n" +
+"    \"results\": [\n" +
+"        {\n" +
+"            \"formatted_address\": \"The Lodhi, Lodhi Rd, CGO Complex, Pragati Vihar, New Delhi, Delhi 110003, India\",\n" +
+"            \"icon\": \"https://maps.gstatic.com/mapfiles/place_api/icons/restaurant-71.png\",\n" +
+"            \"id\": \"cf0a47eabb4007aa3140849ea2cc82d566560eb1\",\n" +
+"            \"name\": \"Indian Accent\",\n" +
+"            \"opening_hours\": {\n" +
+"                \"open_now\": true\n" +
+"            },\n" +
+"            \"place_id\": \"ChIJd-3rnjD9DDkRJixh51I7E_0\",\n" +
+"            \"plus_code\": {\n" +
+"                \"compound_code\": \"H6RQ+P7 New Delhi, Delhi, India\",\n" +
+"                \"global_code\": \"7JWVH6RQ+P7\"\n" +
+"            },\n" +
+"            \"price_level\": 4,\n" +
+"            \"rating\": 4.6,\n" +
+"            \"reference\": \"ChIJd-3rnjD9DDkRJixh51I7E_0\",\n" +
+"            \"types\": [\n" +
+"                \"bar\",\n" +
+"                \"restaurant\",\n" +
+"                \"food\",\n" +
+"                \"point_of_interest\",\n" +
+"                \"establishment\"\n" +
+"            ],\n" +
+"            \"user_ratings_total\": 1357\n" +
+"        }\n" +
+"    ],\n" +
+"    \"status\": \"OK\"\n" +
 "}");
         
-        List<Candidate> list = locationService.searchPlaces(searchText);
+        List<Result> list = locationService.searchPlaces(searchText);
         Assert.assertNotNull("Candidates should not be null", list);
         Assert.assertEquals("There should be one candidate returned", 1, list.size());
     }
@@ -65,7 +77,7 @@ public class LocationServiceTest {
     public void testSearchPlacesException() throws IOException, MalformedURLException, PlaceParseException {
         String searchText = "Museum";
         Mockito.when(placesHttpClient.searchPlaces(searchText)).thenReturn("{   \"candidates\" : [],   \"error_message\" : \"You must use an API key to authenticate each request to Google Maps Platform APIs. For additional information, please refer to http://g.co/dev/maps-no-account\",   \"status\" : \"REQUEST_DENIED\"}");
-        List<Candidate> list = locationService.searchPlaces(searchText);
+        List<Result> list = locationService.searchPlaces(searchText);
     }
     
     

@@ -16,7 +16,7 @@ import java.util.List;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class PlaceResponse {
 
-    private List<Candidate> candidates;
+    private List<Result> results;
     
     private String status;
     
@@ -24,12 +24,12 @@ public class PlaceResponse {
     @JsonProperty("error_message")
     private String errorMessage;
 
-    public List<Candidate> getCandidates() {
-        return candidates;
+    public List<Result> getResults() {
+        return results;
     }
 
-    public void setCandidates(List<Candidate> candidates) {
-        this.candidates = candidates;
+    public void setResults(List<Result> candidates) {
+        this.results = candidates;
     }
 
     public String getStatus() {
