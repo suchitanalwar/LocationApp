@@ -45,22 +45,22 @@ public class LocationController {
         locationService.markAsFav(placeId);
     }
 
+    @RequestMapping(value = "/type", method = RequestMethod.GET)
+    public List<Result> searchPlaceByType(HttpServletResponse response, @RequestParam String searchText, @RequestParam String category)
+            throws MalformedURLException, IOException, PlaceParseException {
+        return locationService.searchPlaceByType(searchText, category);
+    }
+
+    @RequestMapping(value = "/details", method = RequestMethod.GET)
+    public JSONObject getPlaceDetails(HttpServletResponse response, @RequestParam String placeId)
+            throws MalformedURLException, IOException {
+        return locationService.getPlaceDetails(placeId);
+    }
+
     @RequestMapping(value = "/fav", method = RequestMethod.GET)
     public List<Result> getFavPlaces(HttpServletResponse response)
             throws MalformedURLException, IOException, PlaceParseException {
         return locationService.getFavPlaces();
-    }
-
-    @RequestMapping(value = "/filter", method = RequestMethod.GET)
-    public List<Result> filterPlaces(HttpServletResponse response, @RequestParam String searchText, @RequestParam String category)
-            throws MalformedURLException, IOException, PlaceParseException {
-        return locationService.filterPlaces(searchText, category);
-    }
-
-    @RequestMapping(value = "/details", method = RequestMethod.GET)
-    public JSONObject getDetails(HttpServletResponse response, @RequestParam String placeId)
-            throws MalformedURLException, IOException, PlaceParseException {
-        return locationService.getDetails(placeId);
     }
 
 }

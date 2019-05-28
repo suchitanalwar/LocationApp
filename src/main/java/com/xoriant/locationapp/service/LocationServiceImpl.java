@@ -70,20 +70,19 @@ public class LocationServiceImpl implements LocationService {
     }
 
     @Override
-    public List<Result> filterPlaces(String searchText, String category) throws MalformedURLException, IOException, PlaceParseException {
+    public List<Result> searchPlaceByType(String searchText, String category) throws MalformedURLException, IOException, PlaceParseException {
 
         List<Result> searchPlaces = searchPlaces(searchText);
-        List<Result> filterPlaces
-                = searchPlaces.stream()
-                        .filter((place) -> (place.getTypes() != null && place.getTypes().contains(category)))
-                        .collect(Collectors.toList());
+        List<Result> filterPlaces = searchPlaces.stream()
+                                            .filter((place) -> (place.getTypes() != null && place.getTypes().contains(category)))
+                                            .collect(Collectors.toList());
         return filterPlaces;
 
     }
 
     @Override
-    public JSONObject getDetails(String placeId) throws MalformedURLException, IOException, PlaceParseException {
-        String response = placesHttpClient.getDetails(placeId);
+    public JSONObject getPlaceDetails(String placeId) throws MalformedURLException, IOException {
+        String response = placesHttpClient.getPlaceDetails(placeId);
         JSONObject json = new JSONObject(response);
         return json;
 

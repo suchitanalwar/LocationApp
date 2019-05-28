@@ -79,7 +79,7 @@ public class GooglePlacesHttpClient implements PlacesHttpClient {
     }
 
     @Override
-    public String getDetails(String placeId) throws MalformedURLException, IOException {
+    public String getPlaceDetails(String placeId) throws MalformedURLException, IOException {
 
         Map<String, String> params = new HashMap<>();
         params.put("key", apiKey);

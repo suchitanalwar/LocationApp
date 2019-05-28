@@ -21,7 +21,7 @@ public interface LocationService {
     public List<Result> searchPlaces(String text) throws MalformedURLException, IOException, PlaceParseException;
     public void markAsFav(String placeId) throws IOException;
     public List<Result> getFavPlaces() throws IOException;
-    public List<Result> filterPlaces(String searchText, String category) throws MalformedURLException, IOException, PlaceParseException;
-    public JSONObject getDetails(String placeId) throws MalformedURLException, IOException, PlaceParseException;
+    public List<Result> searchPlaceByType(String searchText, String category) throws MalformedURLException, IOException, PlaceParseException;
+    public JSONObject getPlaceDetails(String placeId) throws MalformedURLException, IOException;
 
 }

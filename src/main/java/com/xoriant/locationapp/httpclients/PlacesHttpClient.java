@@ -15,6 +15,6 @@ import java.net.MalformedURLException;
 public interface PlacesHttpClient {
 
     public String searchPlaces(String text) throws MalformedURLException, IOException;
-    public String getDetails(String placeId) throws MalformedURLException, IOException;
+    public String getPlaceDetails(String placeId) throws MalformedURLException, IOException;
     
 }
