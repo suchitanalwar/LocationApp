@@ -21,9 +21,9 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 public class ExceptionControllerAdvice {
 
     @ResponseBody
-    @ExceptionHandler(Exception.class)
+    @ExceptionHandler(PlaceParseException.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-    ErrorInfo handelAllError(HttpServletRequest req, Exception ex) {
+    ErrorInfo handelPlaceParseError(HttpServletRequest req, PlaceParseException ex) {
         if (ex != null && ex.getMessage() != null) {
             
             System.err.println("Exception Handler: Exception " + ex.getMessage());

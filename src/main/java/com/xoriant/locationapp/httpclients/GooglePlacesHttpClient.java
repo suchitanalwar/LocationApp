@@ -15,6 +15,7 @@ import java.net.URL;
 import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.Map;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 /**
@@ -64,7 +65,7 @@ public class GooglePlacesHttpClient implements PlacesHttpClient {
         addParamsString(params, httpURLConnection);
 
         int responseCode = httpURLConnection.getResponseCode();
-        if (responseCode == 200) {
+        if (responseCode == HttpStatus.OK.value()) {
             try (BufferedReader in = new BufferedReader(new InputStreamReader(httpURLConnection.getInputStream()))) {
                 String inputLine;
                 while ((inputLine = in.readLine()) != null) {
@@ -93,7 +94,6 @@ public class GooglePlacesHttpClient implements PlacesHttpClient {
                 out.writeBytes(resultString);
                 out.flush();
             }
-
         }
     }
 }
