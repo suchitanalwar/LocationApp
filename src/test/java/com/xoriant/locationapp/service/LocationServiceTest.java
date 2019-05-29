@@ -11,6 +11,7 @@ import com.xoriant.locationapp.httpclients.PlacesHttpClient;
 import com.xoriant.locationapp.model.Result;
 import java.io.IOException;
 import java.net.MalformedURLException;
+import java.util.Arrays;
 import java.util.List;
 import org.junit.Assert;
 import org.junit.Test;
@@ -113,6 +114,40 @@ public class LocationServiceTest {
 
         Mockito.verify(locationDao, Mockito.times(1)).markAsFav(searchText);
     }
+    
+    @Test()
+    public void testGetFavPlaces() throws IOException, PlaceParseException, MalformedURLException {
+        String placeId = "ChIJrTLr-GyuEmsRBfy61i59si0";
+        Mockito.when(locationDao.favPlaces()).thenReturn(Arrays.asList(placeId));
+        Mockito.when(placesHttpClient.getPlaceDetails(placeId)).thenReturn("{\n"
+                + "   \"html_attributions\" : [],\n"
+                + "   \"result\" : {\n"
+                + "      \"formatted_address\" : \"5, 48 Pirrama Rd, Pyrmont NSW 2009, Australia\",\n"
+                + "      \"formatted_phone_number\" : \"(02) 9374 4000\",\n"
+                + "      \n"
+                + "      \"icon\" : \"https://maps.gstatic.com/mapfiles/place_api/icons/generic_business-71.png\",\n"
+                + "      \"id\" : \"4f89212bf76dde31f092cfc14d7506555d85b5c7\",\n"
+                + "      \"international_phone_number\" : \"+61 2 9374 4000\",\n"
+                + "      \"name\" : \"Google\",\n"
+                + "      \"place_id\" : \"ChIJN1t_tDeuEmsRUsoyG83frY4\",\n"
+                + "      \"rating\" : 4.5,\n"
+                + "      \n"
+                + "      \"scope\" : \"GOOGLE\",\n"
+                + "      \"types\" : [ \"point_of_interest\", \"establishment\" ],\n"
+                + "      \"url\" : \"https://maps.google.com/?cid=10281119596374313554\",\n"
+                + "      \"utc_offset\" : 600,\n"
+                + "      \"vicinity\" : \"5, 48 Pirrama Road, Pyrmont\",\n"
+                + "      \"website\" : \"https://www.google.com.au/about/careers/locations/sydney/\"\n"
+                + "   },\n"
+                + "   \"status\" : \"OK\"\n"
+                + "}\n"
+                + "      ");
+        
+        List<Result> list = locationService.getFavPlaces();
+        Assert.assertNotNull("Result should not be null", list);
+        Assert.assertEquals("There should be one result returned", 1, list.size());
+    }
+    
 
     @Test(expected = IllegalArgumentException.class)
     public void testPlaceDetailNull() throws IOException, MalformedURLException, PlaceParseException {
