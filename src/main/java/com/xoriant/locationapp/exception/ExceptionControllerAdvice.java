@@ -8,6 +8,8 @@ package com.xoriant.locationapp.exception;
 import com.xoriant.locationapp.model.ErrorInfo;
 import java.nio.file.NoSuchFileException;
 import javax.servlet.http.HttpServletRequest;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -20,20 +22,21 @@ import org.springframework.web.bind.annotation.ResponseStatus;
  */
 @ControllerAdvice
 public class ExceptionControllerAdvice {
+    
+    private static final Logger LOGGER = LogManager.getLogger(ExceptionControllerAdvice.class);
 
     @ResponseBody
     @ExceptionHandler(PlaceParseException.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     ErrorInfo handelPlaceParseError(HttpServletRequest req, PlaceParseException ex) {
         if (ex != null && ex.getMessage() != null) {
+            LOGGER.error("Exception Handler: Exception " + ex.getMessage());
+            LOGGER.error("Request URL: " + req.getRequestURI());
             
-            System.err.println("Exception Handler: Exception " + ex.getMessage());
-            System.err.println("Request URL: " + req.getRequestURI());
-            
-            ex.printStackTrace(System.err);
+            ex.printStackTrace();
         }
-        System.err.println("Place Parse Exception Handler:  " + ex.getMessage());
-        System.err.println("Request URL: " + req.getRequestURI());
+        LOGGER.error("Place Parse Exception Handler:  " + ex.getMessage());
+        LOGGER.error("Request URL: " + req.getRequestURI());
         return new ErrorInfo(req.getRequestURL(), ex);
     }
     
@@ -42,13 +45,13 @@ public class ExceptionControllerAdvice {
     @ResponseStatus(HttpStatus.NOT_FOUND)
     ErrorInfo handelNoSuchFileError(HttpServletRequest req, NoSuchFileException ex) {
         if (ex != null && ex.getMessage() != null) {
-            System.err.println("Exception Handler: Exception " + ex.getMessage());
-            System.err.println("Request URL: " + req.getRequestURI());
+            LOGGER.error("Exception Handler: Exception " + ex.getMessage());
+            LOGGER.error("Request URL: " + req.getRequestURI());
             
-            ex.printStackTrace(System.err);
+            ex.printStackTrace();
         }
-        System.err.println("No Such File Exception Handler:  " + ex.getMessage());
-        System.err.println("Request URL: " + req.getRequestURI());
+        LOGGER.error("No Such File Exception Handler:  " + ex.getMessage());
+        LOGGER.error("Request URL: " + req.getRequestURI());
         return new ErrorInfo(req.getRequestURL(), ex);
     }
     
@@ -57,13 +60,13 @@ public class ExceptionControllerAdvice {
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     ErrorInfo handelGenericError(HttpServletRequest req, Exception ex) {
         if (ex != null && ex.getMessage() != null) {
-            System.err.println("Exception Handler: Exception " + ex.getMessage());
-            System.err.println("Request URL: " + req.getRequestURI());
+            LOGGER.error("Exception Handler: Exception " + ex.getMessage());
+            LOGGER.error("Request URL: " + req.getRequestURI());
             
-            ex.printStackTrace(System.err);
+            ex.printStackTrace();
         }
-        System.err.println("Generic Exception Handler:  " + ex.getMessage());
-        System.err.println("Request URL: " + req.getRequestURI());
+        LOGGER.error("Generic Exception Handler:  " + ex.getMessage());
+        LOGGER.error("Request URL: " + req.getRequestURI());
         return new ErrorInfo(req.getRequestURL(), ex);
     }
 

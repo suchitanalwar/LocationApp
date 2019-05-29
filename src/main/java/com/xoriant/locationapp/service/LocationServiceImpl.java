@@ -31,7 +31,7 @@ public class LocationServiceImpl implements LocationService {
 
     @Autowired
     LocationDao locationDao;
-
+    
     @Override
     public List<Result> searchPlaces(String text) throws MalformedURLException, IOException, PlaceParseException {
 
@@ -40,7 +40,7 @@ public class LocationServiceImpl implements LocationService {
         }
 
         String response = placesHttpClient.searchPlaces(text);
-
+        
         ObjectMapper objectMapper = new ObjectMapper();
         PlaceResponse placeResponse = objectMapper.readValue(response, PlaceResponse.class);
 
@@ -85,6 +85,11 @@ public class LocationServiceImpl implements LocationService {
 
     @Override
     public Result getPlaceDetails(String placeId) throws MalformedURLException, IOException, PlaceParseException {
+        
+        if (placeId == null || placeId.isEmpty()) {
+            throw new IllegalArgumentException("Incorrect Place Id specified");
+        }
+        
         String response = placesHttpClient.getPlaceDetails(placeId);
         ObjectMapper objectMapper = new ObjectMapper();
         PlaceResponse placeResponse = objectMapper.readValue(response, PlaceResponse.class);

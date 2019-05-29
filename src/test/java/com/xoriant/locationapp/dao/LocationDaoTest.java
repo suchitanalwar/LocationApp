@@ -13,6 +13,7 @@ import static org.assertj.core.api.Java6Assertions.assertThat;
 import static org.assertj.core.api.Java6Assertions.linesOf;
 import org.junit.After;
 import static org.junit.Assert.assertTrue;
+import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.springframework.test.util.ReflectionTestUtils;
@@ -33,6 +34,7 @@ public class LocationDaoTest {
     }
     
     @After
+    @Before
     public void cleanUp() {
         File file = new File(favFilePath);
         file.delete();

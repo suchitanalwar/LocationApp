@@ -30,7 +30,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 @RequestMapping("/api/places")
 public class LocationController {
     
-    private static final Logger logger = LogManager.getLogger(LocationController.class);
+    private static final Logger LOGGER = LogManager.getLogger(LocationController.class);
 
     @Autowired
     LocationService locationService;
@@ -38,25 +38,28 @@ public class LocationController {
     @RequestMapping(value = "/search", method = RequestMethod.GET)
     public List<Result> searchPlaces(HttpServletResponse response, @RequestParam String searchText)
             throws MalformedURLException, IOException, PlaceParseException {
-        logger.info("Search text passed is" + searchText);
+        LOGGER.info("Search text passed is" + searchText);
         return locationService.searchPlaces(searchText);
     }
 
     @RequestMapping(value = "/type", method = RequestMethod.GET)
     public List<Result> searchPlaceByType(HttpServletResponse response, @RequestParam String searchText, @RequestParam String category)
             throws MalformedURLException, IOException, PlaceParseException {
+        LOGGER.info("Searching by Place & Category. Search Text " + searchText + " Category  " + category);
         return locationService.searchPlaceByType(searchText, category);
     }
 
     @RequestMapping(value = "/details", method = RequestMethod.GET)
     public Result getPlaceDetails(HttpServletResponse response, @RequestParam String placeId)
             throws MalformedURLException, IOException, PlaceParseException {
+        LOGGER.info("Get place details. Place Id" + placeId);
         return locationService.getPlaceDetails(placeId);
     }
 
     @RequestMapping(value = "/fav", method = RequestMethod.GET)
     public List<Result> getFavPlaces(HttpServletResponse response)
             throws MalformedURLException, IOException, PlaceParseException {
+        LOGGER.info("Get fav places");
         return locationService.getFavPlaces();
     }
 
@@ -64,6 +67,7 @@ public class LocationController {
     @RequestMapping(value = "/fav", method = RequestMethod.POST)
     public void markPlaceAsFav(HttpServletResponse response, @RequestParam String placeId)
             throws IOException {
+        LOGGER.info("Mark fav place - placeid - " + placeId);
         locationService.markAsFav(placeId);
     }
 
