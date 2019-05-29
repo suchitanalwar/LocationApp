@@ -13,6 +13,7 @@ import com.xoriant.locationapp.model.Result;
 import com.xoriant.locationapp.model.PlaceResponse;
 import java.io.IOException;
 import java.net.MalformedURLException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -64,7 +65,7 @@ public class LocationServiceImpl implements LocationService {
     public List<Result> getFavPlaces() throws IOException, PlaceParseException, MalformedURLException {
 
         List<String> favPlaces = locationDao.favPlaces();
-        List<Result> favPlacesDetials = null;
+        List<Result> favPlacesDetials = new ArrayList<>();
         for (String place : favPlaces) {
             Result placeDetails = getPlaceDetails(place);
             favPlacesDetials.add(placeDetails);

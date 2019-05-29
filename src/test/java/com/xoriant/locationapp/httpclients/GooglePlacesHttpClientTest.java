@@ -8,6 +8,7 @@ package com.xoriant.locationapp.httpclients;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.powermock.modules.junit4.PowerMockRunner;
@@ -22,10 +23,10 @@ import org.springframework.test.util.ReflectionTestUtils;
 @PropertySource("classpath:application.properties")
 public class GooglePlacesHttpClientTest {
     
-    GooglePlacesHttpClient googlePlacesHttpClient;
+    private static GooglePlacesHttpClient googlePlacesHttpClient;
     
-    @Before
-    public void setUp() {
+    @BeforeClass
+    public static void setUp() {
         googlePlacesHttpClient = new GooglePlacesHttpClient(); 
         ReflectionTestUtils.setField(googlePlacesHttpClient, "apiKey", "AIzaSyCvberVP2XFiqKtXZhLb3sCLoXjgc46mUc");
         ReflectionTestUtils.setField(googlePlacesHttpClient, "searchPlacesUrl", "https://maps.googleapis.com/maps/api/place/textsearch/json");

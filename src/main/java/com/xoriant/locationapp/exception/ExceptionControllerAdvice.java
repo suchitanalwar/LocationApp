@@ -32,7 +32,7 @@ public class ExceptionControllerAdvice {
             
             ex.printStackTrace(System.err);
         }
-        System.err.println("Generic Exception Handler:  " + ex.getMessage());
+        System.err.println("Place Parse Exception Handler:  " + ex.getMessage());
         System.err.println("Request URL: " + req.getRequestURI());
         return new ErrorInfo(req.getRequestURL(), ex);
     }
@@ -48,6 +48,21 @@ public class ExceptionControllerAdvice {
             ex.printStackTrace(System.err);
         }
         System.err.println("No Such File Exception Handler:  " + ex.getMessage());
+        System.err.println("Request URL: " + req.getRequestURI());
+        return new ErrorInfo(req.getRequestURL(), ex);
+    }
+    
+    @ResponseBody
+    @ExceptionHandler(Exception.class)
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    ErrorInfo handelGenericError(HttpServletRequest req, Exception ex) {
+        if (ex != null && ex.getMessage() != null) {
+            System.err.println("Exception Handler: Exception " + ex.getMessage());
+            System.err.println("Request URL: " + req.getRequestURI());
+            
+            ex.printStackTrace(System.err);
+        }
+        System.err.println("Generic Exception Handler:  " + ex.getMessage());
         System.err.println("Request URL: " + req.getRequestURI());
         return new ErrorInfo(req.getRequestURL(), ex);
     }
