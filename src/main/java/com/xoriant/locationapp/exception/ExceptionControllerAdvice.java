@@ -29,14 +29,11 @@ public class ExceptionControllerAdvice {
     @ExceptionHandler(PlaceParseException.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     ErrorInfo handelPlaceParseError(HttpServletRequest req, PlaceParseException ex) {
-        if (ex != null && ex.getMessage() != null) {
-            LOGGER.error("Exception Handler: Exception " + ex.getMessage());
-            LOGGER.error("Request URL: " + req.getRequestURI());
-            
-            ex.printStackTrace();
-        }
         LOGGER.error("Place Parse Exception Handler:  " + ex.getMessage());
         LOGGER.error("Request URL: " + req.getRequestURI());
+        
+        ex.printStackTrace();
+        
         return new ErrorInfo(req.getRequestURL(), ex);
     }
     
@@ -44,14 +41,11 @@ public class ExceptionControllerAdvice {
     @ExceptionHandler(NoSuchFileException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
     ErrorInfo handelNoSuchFileError(HttpServletRequest req, NoSuchFileException ex) {
-        if (ex != null && ex.getMessage() != null) {
-            LOGGER.error("Exception Handler: Exception " + ex.getMessage());
-            LOGGER.error("Request URL: " + req.getRequestURI());
-            
-            ex.printStackTrace();
-        }
         LOGGER.error("No Such File Exception Handler:  " + ex.getMessage());
         LOGGER.error("Request URL: " + req.getRequestURI());
+        
+        ex.printStackTrace();
+        
         return new ErrorInfo(req.getRequestURL(), ex);
     }
     
@@ -59,14 +53,11 @@ public class ExceptionControllerAdvice {
     @ExceptionHandler(Exception.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     ErrorInfo handelGenericError(HttpServletRequest req, Exception ex) {
-        if (ex != null && ex.getMessage() != null) {
-            LOGGER.error("Exception Handler: Exception " + ex.getMessage());
-            LOGGER.error("Request URL: " + req.getRequestURI());
-            
-            ex.printStackTrace();
-        }
         LOGGER.error("Generic Exception Handler:  " + ex.getMessage());
         LOGGER.error("Request URL: " + req.getRequestURI());
+        
+        ex.printStackTrace();
+        
         return new ErrorInfo(req.getRequestURL(), ex);
     }
 
