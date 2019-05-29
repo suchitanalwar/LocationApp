@@ -61,11 +61,15 @@ public class LocationServiceImpl implements LocationService {
     }
 
     @Override
-    public List<Result> getFavPlaces() throws IOException {
+    public List<Result> getFavPlaces() throws IOException, PlaceParseException, MalformedURLException {
 
         List<String> favPlaces = locationDao.favPlaces();
-
-        return null;
+        List<Result> favPlacesDetials = null;
+        for (String place : favPlaces) {
+            Result placeDetails = getPlaceDetails(place);
+            favPlacesDetials.add(placeDetails);
+        }
+        return favPlacesDetials;
     }
 
     @Override
@@ -73,8 +77,8 @@ public class LocationServiceImpl implements LocationService {
 
         List<Result> searchPlaces = searchPlaces(searchText);
         List<Result> filterPlaces = searchPlaces.stream()
-                                            .filter((place) -> (place.getTypes() != null && place.getTypes().contains(category)))
-                                            .collect(Collectors.toList());
+                .filter((place) -> (place.getTypes() != null && place.getTypes().contains(category)))
+                .collect(Collectors.toList());
         return filterPlaces;
     }
 
@@ -83,11 +87,11 @@ public class LocationServiceImpl implements LocationService {
         String response = placesHttpClient.getPlaceDetails(placeId);
         ObjectMapper objectMapper = new ObjectMapper();
         PlaceResponse placeResponse = objectMapper.readValue(response, PlaceResponse.class);
-        
+
         if (placeResponse.getErrorMessage() != null && !placeResponse.getErrorMessage().isEmpty()) {
             throw new PlaceParseException(placeResponse.getErrorMessage());
         }
-        
+
         return placeResponse.getResult();
 
     }

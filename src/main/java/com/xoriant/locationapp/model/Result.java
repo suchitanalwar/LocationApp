@@ -18,26 +18,37 @@ public class Result {
 
     @JsonIgnoreProperties
     private String id;
-    
+
     @JsonIgnoreProperties
     private String icon;
-    
+
     @JsonIgnoreProperties
+    @JsonProperty("place_id")
     private String placeId;
-    
+
     @JsonProperty("formatted_address")
     private String formattedAddress;
-    
+
+    @JsonIgnoreProperties
+    @JsonProperty("formatted_phone_number")
+    private String formattedPhoneNumber;
+
+    @JsonIgnoreProperties
+    @JsonProperty("international_phone_number")
+    private String internationalPhoneNumber;
+
     @JsonIgnoreProperties
     private String name;
-    
+
     @JsonIgnoreProperties
     private String rating;
-    
+
     @JsonIgnoreProperties
     private List<String> types;
     
-
+    @JsonIgnoreProperties
+    private String website;
+    
     public String getId() {
         return id;
     }
@@ -62,6 +73,22 @@ public class Result {
         this.formattedAddress = formattedAddress;
     }
 
+    public String getFormattedPhoneNumber() {
+        return formattedPhoneNumber;
+    }
+
+    public void setFormattedPhoneNumber(String formattedPhoneNumber) {
+        this.formattedPhoneNumber = formattedPhoneNumber;
+    }
+
+    public String getInternationalPhoneNumber() {
+        return internationalPhoneNumber;
+    }
+
+    public void setInternationalPhoneNumber(String internationalPhoneNumber) {
+        this.internationalPhoneNumber = internationalPhoneNumber;
+    }
+
     public String getName() {
         return name;
     }
@@ -77,7 +104,7 @@ public class Result {
     public void setRating(String rating) {
         this.rating = rating;
     }
-    
+
     public String getIcon() {
         return icon;
     }
@@ -93,5 +120,12 @@ public class Result {
     public void setTypes(List<String> types) {
         this.types = types;
     }
+    
+    public String getWebsite() {
+        return website;
+    }
 
+    public void setWebsite(String website) {
+        this.website = website;
+    }
 }
