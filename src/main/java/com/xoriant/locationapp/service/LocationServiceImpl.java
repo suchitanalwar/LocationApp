@@ -84,11 +84,6 @@ public class LocationServiceImpl implements LocationService {
 
     @Override
     public Result getPlaceDetails(String placeId) throws MalformedURLException, IOException, PlaceParseException {
-        
-        if (placeId == null || placeId.isEmpty()) {
-            throw new IllegalArgumentException("Place Id cannot be empty");
-        }
-        
         String response = placesHttpClient.getPlaceDetails(placeId);
         ObjectMapper objectMapper = new ObjectMapper();
         PlaceResponse placeResponse = objectMapper.readValue(response, PlaceResponse.class);
@@ -98,6 +93,7 @@ public class LocationServiceImpl implements LocationService {
         }
 
         return placeResponse.getResult();
+
     }
 
 }

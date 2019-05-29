@@ -5,6 +5,8 @@
  */
 package com.xoriant.locationapp.controller;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import com.xoriant.locationapp.exception.PlaceParseException;
 import com.xoriant.locationapp.model.Result;
 import com.xoriant.locationapp.service.LocationService;
@@ -27,6 +29,8 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 @RestController
 @RequestMapping("/api/places")
 public class LocationController {
+    
+    private static final Logger logger = LogManager.getLogger(LocationController.class);
 
     @Autowired
     LocationService locationService;
@@ -34,6 +38,7 @@ public class LocationController {
     @RequestMapping(value = "/search", method = RequestMethod.GET)
     public List<Result> searchPlaces(HttpServletResponse response, @RequestParam String searchText)
             throws MalformedURLException, IOException, PlaceParseException {
+        logger.info("Search text passed is" + searchText);
         return locationService.searchPlaces(searchText);
     }
 

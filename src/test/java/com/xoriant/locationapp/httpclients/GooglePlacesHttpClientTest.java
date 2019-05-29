@@ -29,7 +29,6 @@ public class GooglePlacesHttpClientTest {
         googlePlacesHttpClient = new GooglePlacesHttpClient(); 
         ReflectionTestUtils.setField(googlePlacesHttpClient, "apiKey", "AIzaSyCvberVP2XFiqKtXZhLb3sCLoXjgc46mUc");
         ReflectionTestUtils.setField(googlePlacesHttpClient, "searchPlacesUrl", "https://maps.googleapis.com/maps/api/place/textsearch/json");
-        ReflectionTestUtils.setField(googlePlacesHttpClient, "detailsPlacesUrl", "https://maps.googleapis.com/maps/api/place/details/json");
     }
     
     //Expecting that no exception should be thrown
@@ -38,10 +37,5 @@ public class GooglePlacesHttpClientTest {
     @Test()
     public void searchPlacesTest() throws MalformedURLException, IOException {
         googlePlacesHttpClient.searchPlaces("restaurants in india");
-    }
-    
-    @Test()
-    public void placeDetailsTest() throws MalformedURLException, IOException {
-        googlePlacesHttpClient.getPlaceDetails("ChIJrTLr-GyuEmsRBfy61i59si0");
     }
 }
